@@ -16,6 +16,8 @@ pipeline {
         stage('Build with Maven') {
             steps {
                 sh 'mvn clean package'
+                sh 'ls -l target'
+
             }
         }
 
