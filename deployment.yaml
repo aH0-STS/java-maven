@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: java-hello-container
-          image: saiyash000/java-hello-app:latest
+          image: saiyash000/my-java-app:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9090
