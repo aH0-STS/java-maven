@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: java-hello-container
-          image: your-dockerhub-username/java-hello-app:latest
+          image: harishkoppineni/java-hello-app:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
