@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'your-dockerhub-username/java-hello-app'
+        IMAGE_NAME = 'harishkoppineni/java-hello-app'
         TAG = 'latest'
     }
 
@@ -25,7 +25,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('', 'dockerhub-creds') {
+                    docker.withRegistry('', 'docker-cred') {
                         def image = docker.build("${IMAGE_NAME}:${TAG}")
                         image.push()
                     }
@@ -38,7 +38,9 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig-cred-id', variable: 'KUBECONFIG')]) {
+                //withCredentials([file(credentialsId: 'kubeconfig-cred-id', variable: 'KUBECONFIG')])
+                 withKubeConfig([credentialsId: 'kubeconfig'])
+                {
                     sh 'kubectl apply -f deployment.yaml'
                     sh 'kubectl apply -f service.yaml'
                 }
