@@ -1,20 +1,47 @@
-pipeline{
+pipeline {
     agent any
 
-    tools {
-         maven 'maven'
-         jdk 'java'
+    environment {
+        IMAGE_NAME = 'your-dockerhub-username/java-hello-app'
+        TAG = 'latest'
     }
 
-    stages{
-        stage('checkout'){
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github access', url: 'https://github.com/sreenivas449/java-hello-world-with-maven.git']]])
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
-        stage('build'){
-            steps{
-               bat 'mvn package'
+
+        stage('Build with Maven') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Docker Build and Push') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub-creds') {
+                        def image = docker.build("${IMAGE_NAME}:${TAG}")
+                        image.push()
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-cred-id', variable: 'KUBECONFIG')]) {
+                    sh 'kubectl apply -f deployment.yaml'
+                    sh 'kubectl apply -f service.yaml'
+                }
             }
         }
     }
