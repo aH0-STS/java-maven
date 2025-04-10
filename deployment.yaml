@@ -17,4 +17,4 @@ spec:
           image: harishkoppineni/java-hello-app:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 9090
