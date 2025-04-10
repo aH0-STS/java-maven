@@ -20,9 +20,9 @@ pipeline {
         }
 
         stage('Docker Build and Push') {
-            when {
-                branch 'develop'
-            }
+            // when {
+            //     branch 'develop'
+            // }
             steps {
                 script {
                     docker.withRegistry('', 'docker-cred') {
@@ -34,9 +34,9 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-            when {
-                branch 'develop'
-            }
+            // when {
+            //     branch 'develop'
+            // }
             steps {
                 //withCredentials([file(credentialsId: 'kubeconfig-cred-id', variable: 'KUBECONFIG')])
                  withKubeConfig([credentialsId: 'kubeconfig'])
