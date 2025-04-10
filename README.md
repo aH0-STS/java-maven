@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Building Java Projects with Maven
 This guide walks you through using Maven to build a simple Java project.
 
@@ -250,3 +251,6 @@ Here’s the completed `pom.xml` file:
 + To run this project run the following command.
 
     `java -cp target/jb-hello-world-maven-0.1.0.jar hello.HelloWorld`
+=======
+# java-maven
+>>>>>>> 92c4fb8e3ad1d0208ae8a0656ad530208f672559
