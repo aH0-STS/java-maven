@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: java-hello-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: java-hello
   ports:
     - port: 80
       targetPort: 9090
-      nodeport: 30090
+      nodePort: 30090
