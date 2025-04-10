@@ -27,7 +27,7 @@ pipeline {
             // }
             steps {
                 script {
-                    docker.withRegistry('', 'docker-cred') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
                         def image = docker.build("${IMAGE_NAME}:${TAG}")
                         image.push()
                     }
