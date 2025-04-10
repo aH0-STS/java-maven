@@ -23,7 +23,7 @@ public class HelloWorld {
         public void handle(HttpExchange t) throws IOException {
             Greeter greeter = new Greeter();
             String response = greeter.sayHello();
-            t.sendResponseHeaders(200, response.length());
+            t.sendResponseHeaders(150, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();
